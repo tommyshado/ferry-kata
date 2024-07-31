@@ -17,9 +17,7 @@ export default class FerryImpl implements IFerry {
     }
     this.cars.push(car);
     this.car_count++;
-    // Get the last car from the cars variable then
-    // Add the passengers count
-    this.people_count += this.cars[this.cars.length - 1].passengerCount;
+    this.people_count += car.passengerCount;
     return "accepted";
   }
   carsList(): ICar[] {
