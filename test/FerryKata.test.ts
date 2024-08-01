@@ -4,11 +4,10 @@ import FerryImpl from "../FerryImpl";
 import FerryManager from "../FerryManagerImpl";
 import { ICar } from "../ICar";
 import { IFerry } from "../IFerry";
-import { IFerryManager } from "../IFerryManager";
 
 let car: ICar;
 let ferry: IFerry;
-let ferryManager: IFerryManager;
+let ferryManager: IFerry;
 
 describe("FerryKata", function () {
   beforeEach(() => {
@@ -18,16 +17,16 @@ describe("FerryKata", function () {
   });
   describe("The Car Implementation", () => {
     it("should set & get the colour", () => {
-      car = new CarImpl("red", 0);
+      car = new CarImpl(1, "red", 0);
       assert.equal("red", car.colour);
-      car = new CarImpl("blue", 0);
+      car = new CarImpl(2, "blue", 0);
       assert.equal("blue", car.colour);
     });
     it("should set & get both the passenger count & colour", () => {
-      car = new CarImpl("red", 2);
-      assert.deepEqual({ colour: "red", passengerCount: 2 }, car);
-      car = new CarImpl("blue", 4);
-      assert.deepEqual({ colour: "blue", passengerCount: 4 }, car);
+      car = new CarImpl(1, "red", 2);
+      assert.deepEqual({ id: 1, colour: "red", passengerCount: 2 }, car);
+      car = new CarImpl(2, "blue", 4);
+      assert.deepEqual({ id: 2, colour: "blue", passengerCount: 4 }, car);
     });
   });
   describe("The Ferry Implementation", () => {
@@ -50,10 +49,10 @@ describe("FerryKata", function () {
     });
     it("should board cars", () => {
       ferry = new FerryImpl(10, 25);
-      const car = ferry.board({ colour: "red", passengerCount: 4 });
+      const car = ferry.board({ id: 1, colour: "red", passengerCount: 4 });
       assert.equal("accepted", car);
       assert.deepEqual(
-        [{ colour: "red", passengerCount: 4 }],
+        [{ id: 1, colour: "red", passengerCount: 4 }],
         ferry.carsList()
       );
       // Check for people count
@@ -63,32 +62,60 @@ describe("FerryKata", function () {
     });
     it("should reject boarding cars", () => {
       ferry = new FerryImpl(1, 4);
-      ferry.board({ colour: "red", passengerCount: 4 });
+      ferry.board({ id: 1, colour: "red", passengerCount: 4 });
       assert.equal(1, ferry.carsList().length);
-      const car = ferry.board({ colour: "blue", passengerCount: 4 });
+      const car = ferry.board({ id: 2, colour: "blue", passengerCount: 4 });
       assert.equal("rejected", car);
     });
   });
   describe("The FerryManager implementation", () => {
     it("should find the number of cars with a color", () => {
       const carsList = [
-        { colour: "orange", passengerCount: 2 },
-        { colour: "red", passengerCount: 4 },
-        { colour: "black", passengerCount: 2 },
-        { colour: "green", passengerCount: 4 },
+        { id: 1, colour: "orange", passengerCount: 2 },
+        { id: 2, colour: "red", passengerCount: 4 },
+        { id: 3, colour: "black", passengerCount: 2 },
+        { id: 4, colour: "green", passengerCount: 4 },
       ];
       ferryManager = new FerryManager(10, 15, carsList);
-      assert.equal(1, ferryManager.numberOfCarsWithColor("black"));
+      assert.equal(1, ferryManager.numberOfCarsWithColor?.("black"));
     });
     it("should return false if a car is not found", () => {
       const carsList = [
-        { colour: "orange", passengerCount: 2 },
-        { colour: "red", passengerCount: 4 },
-        { colour: "black", passengerCount: 2 },
-        { colour: "green", passengerCount: 4 },
+        { id: 1,colour: "orange", passengerCount: 2 },
+        { id: 2,colour: "red", passengerCount: 4 },
+        { id: 3,colour: "black", passengerCount: 2 },
+        { id: 4,colour: "green", passengerCount: 4 },
       ];
       ferryManager = new FerryManager(10, 15, carsList);
-      assert.equal(false, ferryManager.numberOfCarsWithColor("brown"));
+      assert.equal(false, ferryManager.numberOfCarsWithColor?.("brown"));
+    });
+    it("should leave a ferry", () => {
+      const carsList = [
+        { id: 1,colour: "orange", passengerCount: 2 },
+        { id: 2,colour: "red", passengerCount: 4 },
+        { id: 3,colour: "black", passengerCount: 2 },
+        { id: 4,colour: "green", passengerCount: 4 },
+      ];
+      ferryManager = new FerryManager(10, 15, carsList);
+      let leftFerry = ferryManager.leaveFerry?.(5);
+      assert.equal(false, leftFerry);
+      leftFerry = ferryManager.leaveFerry?.(0);
+      assert.equal(false, leftFerry);
+      leftFerry = ferryManager.leaveFerry?.(1);
+      assert.equal(true, leftFerry);
+    });
+    it("should leave a ferry & update the number of cars & people", () => {
+      const carsList = [
+        { id: 1,colour: "orange", passengerCount: 2 },
+        { id: 2,colour: "red", passengerCount: 4 },
+        { id: 3,colour: "black", passengerCount: 2 },
+        { id: 4,colour: "green", passengerCount: 4 },
+      ];
+      ferryManager = new FerryManager(10, 15, carsList);
+      let leftFerry = ferryManager.leaveFerry?.(2)
+      assert.equal(true, leftFerry);
+      assert.equal(9, ferryManager.numberOfCars);
+      assert.equal(11, ferryManager.numberOfPeople);
     });
   });
 });

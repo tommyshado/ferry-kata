@@ -20,5 +20,19 @@ class FerryManager extends FerryImpl_1.default {
             return colorCount;
         return false;
     }
+    leaveFerry(id) {
+        if (!id)
+            return false;
+        for (let i = 0; i < this.cars.length; i++) {
+            if (this.cars[i].id === id) {
+                this.cars.slice(i, 1);
+                // Update the numbersOfCars & numberOfPeople variables
+                this.numberOfCars--;
+                this.numberOfPeople -= this.cars[i].passengerCount;
+                return true;
+            }
+        }
+        return false;
+    }
 }
 exports.default = FerryManager;
