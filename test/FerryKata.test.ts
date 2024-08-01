@@ -103,6 +103,7 @@ describe("FerryKata", function () {
       assert.equal(false, leftFerry);
       leftFerry = ferryManager.leaveFerry?.(1);
       assert.equal(true, leftFerry);
+      assert.equal(3, ferryManager.carsList().length);
     });
     it("should leave a ferry & update the number of cars & people", () => {
       const carsList = [
@@ -115,7 +116,7 @@ describe("FerryKata", function () {
       let leftFerry = ferryManager.leaveFerry?.(2)
       assert.equal(true, leftFerry);
       assert.equal(9, ferryManager.numberOfCars);
-      assert.equal(11, ferryManager.numberOfPeople);
+      assert.equal(13, ferryManager.numberOfPeople);
     });
   });
 });

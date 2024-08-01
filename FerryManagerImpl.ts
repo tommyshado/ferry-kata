@@ -20,7 +20,7 @@ export default class FerryManager extends FerryImpl implements IFerry {
         if (!id) return false;
         for (let i = 0; i < this.cars.length; i++) {
             if (this.cars[i].id === id) {
-                this.cars.slice(i, 1);
+                this.cars.splice(i, 1);
                 // Update the numbersOfCars & numberOfPeople variables
                 this.numberOfCars--;
                 this.numberOfPeople -= this.cars[i].passengerCount;

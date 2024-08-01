@@ -101,6 +101,7 @@ describe("FerryKata", function () {
             assert_1.default.equal(false, leftFerry);
             leftFerry = (_c = ferryManager.leaveFerry) === null || _c === void 0 ? void 0 : _c.call(ferryManager, 1);
             assert_1.default.equal(true, leftFerry);
+            assert_1.default.equal(3, ferryManager.carsList().length);
         });
         it("should leave a ferry & update the number of cars & people", () => {
             var _a;
@@ -114,7 +115,7 @@ describe("FerryKata", function () {
             let leftFerry = (_a = ferryManager.leaveFerry) === null || _a === void 0 ? void 0 : _a.call(ferryManager, 2);
             assert_1.default.equal(true, leftFerry);
             assert_1.default.equal(9, ferryManager.numberOfCars);
-            assert_1.default.equal(11, ferryManager.numberOfPeople);
+            assert_1.default.equal(13, ferryManager.numberOfPeople);
         });
     });
 });
