@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "ts-mocha test/*.ts"
+    "test": "ts-mocha test/*.ts",
+    "coverage": "nyc ts-mocha test/*.ts"
   },
   "keywords": [],
   "author": "",
@@ -13,6 +14,7 @@
     "@types/mocha": "^10.0.7",
     "@types/node": "^22.0.0",
     "mocha": "^10.7.0",
+    "nyc": "^17.0.0",
     "ts-mocha": "^10.0.0",
     "typescript": "^5.5.4"
   }

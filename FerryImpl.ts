@@ -9,9 +9,9 @@ export default class FerryImpl implements IFerry {
   constructor(
     public numberOfCars: number = 0,
     public numberOfPeople: number = 0,
-    private cars: ICar[] = []
+    protected cars: ICar[] = []
   ) {}
-  board(car: ICar): string {
+  public board(car: ICar): string {
     if (this.car_count >= this.numberOfCars || this.people_count >= this.numberOfPeople) {
         return "rejected";
     }
@@ -20,7 +20,7 @@ export default class FerryImpl implements IFerry {
     this.people_count += car.passengerCount;
     return "accepted";
   }
-  carsList(): ICar[] {
+  public carsList(): ICar[] {
     return this.cars;
   }
   get peopleCount(): number {

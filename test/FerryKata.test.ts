@@ -1,16 +1,20 @@
 import assert from "assert";
 import CarImpl from "../CarImpl";
 import FerryImpl from "../FerryImpl";
+import FerryManager from "../FerryManagerImpl";
 import { ICar } from "../ICar";
 import { IFerry } from "../IFerry";
+import { IFerryManager } from "../IFerryManager";
 
 let car: ICar;
 let ferry: IFerry;
+let ferryManager: IFerryManager;
 
 describe("FerryKata", function () {
   beforeEach(() => {
     car = new CarImpl();
     ferry = new FerryImpl();
+    ferryManager = new FerryManager();
   });
   describe("The Car Implementation", () => {
     it("should set & get the colour", () => {
@@ -58,11 +62,33 @@ describe("FerryKata", function () {
       assert.equal(1, ferry.car_count);
     });
     it("should reject boarding cars", () => {
-        ferry = new FerryImpl(1, 4);
-        ferry.board({ colour: "red", passengerCount: 4 });
-        assert.equal(1, ferry.carsList().length);
-        const car = ferry.board({ colour: "blue", passengerCount: 4 });
-        assert.equal("rejected", car);
+      ferry = new FerryImpl(1, 4);
+      ferry.board({ colour: "red", passengerCount: 4 });
+      assert.equal(1, ferry.carsList().length);
+      const car = ferry.board({ colour: "blue", passengerCount: 4 });
+      assert.equal("rejected", car);
+    });
+  });
+  describe("The FerryManager implementation", () => {
+    it("should find the number of cars with a color", () => {
+      const carsList = [
+        { colour: "orange", passengerCount: 2 },
+        { colour: "red", passengerCount: 4 },
+        { colour: "black", passengerCount: 2 },
+        { colour: "green", passengerCount: 4 },
+      ];
+      ferryManager = new FerryManager(10, 15, carsList);
+      assert.equal(1, ferryManager.numberOfCarsWithColor("black"));
+    });
+    it("should return false if a car is not found", () => {
+      const carsList = [
+        { colour: "orange", passengerCount: 2 },
+        { colour: "red", passengerCount: 4 },
+        { colour: "black", passengerCount: 2 },
+        { colour: "green", passengerCount: 4 },
+      ];
+      ferryManager = new FerryManager(10, 15, carsList);
+      assert.equal(false, ferryManager.numberOfCarsWithColor("brown"));
     });
   });
 });

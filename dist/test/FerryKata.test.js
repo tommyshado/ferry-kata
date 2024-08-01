@@ -6,12 +6,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const assert_1 = __importDefault(require("assert"));
 const CarImpl_1 = __importDefault(require("../CarImpl"));
 const FerryImpl_1 = __importDefault(require("../FerryImpl"));
+const FerryManagerImpl_1 = __importDefault(require("../FerryManagerImpl"));
 let car;
 let ferry;
+let ferryManager;
 describe("FerryKata", function () {
     beforeEach(() => {
         car = new CarImpl_1.default();
         ferry = new FerryImpl_1.default();
+        ferryManager = new FerryManagerImpl_1.default();
     });
     describe("The Car Implementation", () => {
         it("should set & get the colour", () => {
@@ -58,6 +61,28 @@ describe("FerryKata", function () {
             assert_1.default.equal(1, ferry.carsList().length);
             const car = ferry.board({ colour: "blue", passengerCount: 4 });
             assert_1.default.equal("rejected", car);
+        });
+    });
+    describe("The FerryManager implementation", () => {
+        it("should find the number of cars with a color", () => {
+            const carsList = [
+                { colour: "orange", passengerCount: 2 },
+                { colour: "red", passengerCount: 4 },
+                { colour: "black", passengerCount: 2 },
+                { colour: "green", passengerCount: 4 },
+            ];
+            ferryManager = new FerryManagerImpl_1.default(10, 15, carsList);
+            assert_1.default.equal(1, ferryManager.numberOfCarsWithColor("black"));
+        });
+        it("should return false if a car is not found", () => {
+            const carsList = [
+                { colour: "orange", passengerCount: 2 },
+                { colour: "red", passengerCount: 4 },
+                { colour: "black", passengerCount: 2 },
+                { colour: "green", passengerCount: 4 },
+            ];
+            ferryManager = new FerryManagerImpl_1.default(10, 15, carsList);
+            assert_1.default.equal(false, ferryManager.numberOfCarsWithColor("brown"));
         });
     });
 });
