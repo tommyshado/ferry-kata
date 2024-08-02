@@ -69,33 +69,21 @@ describe("FerryKata", function () {
     });
   });
   describe("The FerryManager implementation", () => {
+    const carsList = [
+      { id: 1, colour: "orange", passengerCount: 2 },
+      { id: 2, colour: "red", passengerCount: 4 },
+      { id: 3, colour: "black", passengerCount: 2 },
+      { id: 4, colour: "green", passengerCount: 4 },
+    ];
     it("should find the number of cars with a color", () => {
-      const carsList = [
-        { id: 1, colour: "orange", passengerCount: 2 },
-        { id: 2, colour: "red", passengerCount: 4 },
-        { id: 3, colour: "black", passengerCount: 2 },
-        { id: 4, colour: "green", passengerCount: 4 },
-      ];
       ferryManager = new FerryManager(10, 15, carsList);
       assert.equal(1, ferryManager.carsWithColor?.("black"));
     });
     it("should return false if a car is not found", () => {
-      const carsList = [
-        { id: 1,colour: "orange", passengerCount: 2 },
-        { id: 2,colour: "red", passengerCount: 4 },
-        { id: 3,colour: "black", passengerCount: 2 },
-        { id: 4,colour: "green", passengerCount: 4 },
-      ];
       ferryManager = new FerryManager(10, 15, carsList);
       assert.equal(false, ferryManager.carsWithColor?.("brown"));
     });
     it("should leave a ferry", () => {
-      const carsList = [
-        { id: 1,colour: "orange", passengerCount: 2 },
-        { id: 2,colour: "red", passengerCount: 4 },
-        { id: 3,colour: "black", passengerCount: 2 },
-        { id: 4,colour: "green", passengerCount: 4 },
-      ];
       ferryManager = new FerryManager(10, 15, carsList);
       let leftFerry = ferryManager.leaveFerry?.(5);
       assert.equal(false, leftFerry);
@@ -106,12 +94,6 @@ describe("FerryKata", function () {
       assert.equal(3, ferryManager.carsList().length);
     });
     it("should leave a ferry & update the number of cars & people", () => {
-      const carsList = [
-        { id: 1,colour: "orange", passengerCount: 2 },
-        { id: 2,colour: "red", passengerCount: 4 },
-        { id: 3,colour: "black", passengerCount: 2 },
-        { id: 4,colour: "green", passengerCount: 4 },
-      ];
       ferryManager = new FerryManager(10, 15, carsList);
       let leftFerry = ferryManager.leaveFerry?.(2)
       assert.equal(true, leftFerry);

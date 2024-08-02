@@ -64,36 +64,24 @@ describe("FerryKata", function () {
         });
     });
     describe("The FerryManager implementation", () => {
+        const carsList = [
+            { id: 1, colour: "orange", passengerCount: 2 },
+            { id: 2, colour: "red", passengerCount: 4 },
+            { id: 3, colour: "black", passengerCount: 2 },
+            { id: 4, colour: "green", passengerCount: 4 },
+        ];
         it("should find the number of cars with a color", () => {
             var _a;
-            const carsList = [
-                { id: 1, colour: "orange", passengerCount: 2 },
-                { id: 2, colour: "red", passengerCount: 4 },
-                { id: 3, colour: "black", passengerCount: 2 },
-                { id: 4, colour: "green", passengerCount: 4 },
-            ];
             ferryManager = new FerryManagerImpl_1.default(10, 15, carsList);
             assert_1.default.equal(1, (_a = ferryManager.carsWithColor) === null || _a === void 0 ? void 0 : _a.call(ferryManager, "black"));
         });
         it("should return false if a car is not found", () => {
             var _a;
-            const carsList = [
-                { id: 1, colour: "orange", passengerCount: 2 },
-                { id: 2, colour: "red", passengerCount: 4 },
-                { id: 3, colour: "black", passengerCount: 2 },
-                { id: 4, colour: "green", passengerCount: 4 },
-            ];
             ferryManager = new FerryManagerImpl_1.default(10, 15, carsList);
             assert_1.default.equal(false, (_a = ferryManager.carsWithColor) === null || _a === void 0 ? void 0 : _a.call(ferryManager, "brown"));
         });
         it("should leave a ferry", () => {
             var _a, _b, _c;
-            const carsList = [
-                { id: 1, colour: "orange", passengerCount: 2 },
-                { id: 2, colour: "red", passengerCount: 4 },
-                { id: 3, colour: "black", passengerCount: 2 },
-                { id: 4, colour: "green", passengerCount: 4 },
-            ];
             ferryManager = new FerryManagerImpl_1.default(10, 15, carsList);
             let leftFerry = (_a = ferryManager.leaveFerry) === null || _a === void 0 ? void 0 : _a.call(ferryManager, 5);
             assert_1.default.equal(false, leftFerry);
@@ -105,12 +93,6 @@ describe("FerryKata", function () {
         });
         it("should leave a ferry & update the number of cars & people", () => {
             var _a;
-            const carsList = [
-                { id: 1, colour: "orange", passengerCount: 2 },
-                { id: 2, colour: "red", passengerCount: 4 },
-                { id: 3, colour: "black", passengerCount: 2 },
-                { id: 4, colour: "green", passengerCount: 4 },
-            ];
             ferryManager = new FerryManagerImpl_1.default(10, 15, carsList);
             let leftFerry = (_a = ferryManager.leaveFerry) === null || _a === void 0 ? void 0 : _a.call(ferryManager, 2);
             assert_1.default.equal(true, leftFerry);
