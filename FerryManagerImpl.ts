@@ -6,7 +6,7 @@ export default class FerryManager extends FerryImpl implements IFerry {
     constructor(numberOfCars: number = 0, numberOfPeople: number = 0, cars: ICar[] = []){
         super(numberOfCars, numberOfPeople, cars);
     };
-    public numberOfCarsWithColor(color: string): number | boolean {
+    public carsWithColor(color: string): number | boolean {
         let colorCount: number = 0;
         for (let car of this.cars) {
             if (car.colour === color) {
@@ -20,10 +20,10 @@ export default class FerryManager extends FerryImpl implements IFerry {
         if (!id) return false;
         for (let i = 0; i < this.cars.length; i++) {
             if (this.cars[i].id === id) {
-                this.cars.splice(i, 1);
                 // Update the numbersOfCars & numberOfPeople variables
                 this.numberOfCars--;
                 this.numberOfPeople -= this.cars[i].passengerCount;
+                this.cars.splice(i, 1);
                 return true;
             }
         }

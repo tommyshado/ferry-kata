@@ -9,7 +9,7 @@ class FerryManager extends FerryImpl_1.default {
         super(numberOfCars, numberOfPeople, cars);
     }
     ;
-    numberOfCarsWithColor(color) {
+    carsWithColor(color) {
         let colorCount = 0;
         for (let car of this.cars) {
             if (car.colour === color) {
@@ -25,10 +25,10 @@ class FerryManager extends FerryImpl_1.default {
             return false;
         for (let i = 0; i < this.cars.length; i++) {
             if (this.cars[i].id === id) {
-                this.cars.splice(i, 1);
                 // Update the numbersOfCars & numberOfPeople variables
                 this.numberOfCars--;
                 this.numberOfPeople -= this.cars[i].passengerCount;
+                this.cars.splice(i, 1);
                 return true;
             }
         }

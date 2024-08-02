@@ -73,7 +73,7 @@ describe("FerryKata", function () {
                 { id: 4, colour: "green", passengerCount: 4 },
             ];
             ferryManager = new FerryManagerImpl_1.default(10, 15, carsList);
-            assert_1.default.equal(1, (_a = ferryManager.numberOfCarsWithColor) === null || _a === void 0 ? void 0 : _a.call(ferryManager, "black"));
+            assert_1.default.equal(1, (_a = ferryManager.carsWithColor) === null || _a === void 0 ? void 0 : _a.call(ferryManager, "black"));
         });
         it("should return false if a car is not found", () => {
             var _a;
@@ -84,7 +84,7 @@ describe("FerryKata", function () {
                 { id: 4, colour: "green", passengerCount: 4 },
             ];
             ferryManager = new FerryManagerImpl_1.default(10, 15, carsList);
-            assert_1.default.equal(false, (_a = ferryManager.numberOfCarsWithColor) === null || _a === void 0 ? void 0 : _a.call(ferryManager, "brown"));
+            assert_1.default.equal(false, (_a = ferryManager.carsWithColor) === null || _a === void 0 ? void 0 : _a.call(ferryManager, "brown"));
         });
         it("should leave a ferry", () => {
             var _a, _b, _c;
@@ -115,7 +115,7 @@ describe("FerryKata", function () {
             let leftFerry = (_a = ferryManager.leaveFerry) === null || _a === void 0 ? void 0 : _a.call(ferryManager, 2);
             assert_1.default.equal(true, leftFerry);
             assert_1.default.equal(9, ferryManager.numberOfCars);
-            assert_1.default.equal(13, ferryManager.numberOfPeople);
+            assert_1.default.equal(11, ferryManager.numberOfPeople);
         });
     });
 });

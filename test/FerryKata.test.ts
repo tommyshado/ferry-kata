@@ -77,7 +77,7 @@ describe("FerryKata", function () {
         { id: 4, colour: "green", passengerCount: 4 },
       ];
       ferryManager = new FerryManager(10, 15, carsList);
-      assert.equal(1, ferryManager.numberOfCarsWithColor?.("black"));
+      assert.equal(1, ferryManager.carsWithColor?.("black"));
     });
     it("should return false if a car is not found", () => {
       const carsList = [
@@ -87,7 +87,7 @@ describe("FerryKata", function () {
         { id: 4,colour: "green", passengerCount: 4 },
       ];
       ferryManager = new FerryManager(10, 15, carsList);
-      assert.equal(false, ferryManager.numberOfCarsWithColor?.("brown"));
+      assert.equal(false, ferryManager.carsWithColor?.("brown"));
     });
     it("should leave a ferry", () => {
       const carsList = [
@@ -116,7 +116,7 @@ describe("FerryKata", function () {
       let leftFerry = ferryManager.leaveFerry?.(2)
       assert.equal(true, leftFerry);
       assert.equal(9, ferryManager.numberOfCars);
-      assert.equal(13, ferryManager.numberOfPeople);
+      assert.equal(11, ferryManager.numberOfPeople);
     });
   });
 });
