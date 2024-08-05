@@ -16,9 +16,7 @@ class FerryManager extends FerryImpl_1.default {
                 colorCount++;
             }
         }
-        if (colorCount)
-            return colorCount;
-        return false;
+        return colorCount;
     }
     leaveFerry(id) {
         if (!id)
@@ -33,6 +31,23 @@ class FerryManager extends FerryImpl_1.default {
             }
         }
         return false;
+    }
+    handleBoarding(car) {
+        const boardingResult = super.board(car);
+        if (boardingResult === "accepted") {
+            super.incrementCarTrips(car.id);
+            const trips = super.getCarTrips(car.id);
+            if (trips % 7 === 0) {
+                return "you go free!";
+            }
+            else if (trips % 3 === 0) {
+                return "half price!";
+            }
+            return "accepted";
+        }
+        else {
+            return boardingResult;
+        }
     }
 }
 exports.default = FerryManager;

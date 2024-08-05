@@ -8,6 +8,7 @@ export interface IFerry {
     board(car: ICar): string;
     carsList(): ICar[];
     // methods included in FerryManagerImpl
-    carsWithColor?(color: string): number | boolean;
+    carsWithColor?(color: string): number;
     leaveFerry?(id: number): boolean;
+    handleBoarding?(car: ICar): string;
 }

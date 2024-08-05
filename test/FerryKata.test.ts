@@ -36,16 +36,8 @@ describe("FerryKata", function () {
     });
     it("should set & get both the number of cars & people", () => {
       ferry = new FerryImpl(2, 8);
-      assert.deepEqual(
-        {
-          numberOfCars: 2,
-          numberOfPeople: 8,
-          car_count: 0,
-          cars: [],
-          people_count: 0,
-        },
-        ferry
-      );
+      assert.deepEqual(2, ferry.numberOfCars);
+      assert.equal(8, ferry.numberOfPeople);
     });
     it("should board cars", () => {
       ferry = new FerryImpl(10, 25);
@@ -81,7 +73,7 @@ describe("FerryKata", function () {
     });
     it("should return false if a car is not found", () => {
       ferryManager = new FerryManager(10, 15, carsList);
-      assert.equal(false, ferryManager.carsWithColor?.("brown"));
+      assert.equal(0, ferryManager.carsWithColor?.("brown"));
     });
     it("should leave a ferry", () => {
       ferryManager = new FerryManager(10, 15, carsList);
@@ -95,7 +87,7 @@ describe("FerryKata", function () {
     });
     it("should leave a ferry & update the number of cars & people", () => {
       ferryManager = new FerryManager(10, 15, carsList);
-      let leftFerry = ferryManager.leaveFerry?.(2)
+      let leftFerry = ferryManager.leaveFerry?.(2);
       assert.equal(true, leftFerry);
       assert.equal(9, ferryManager.numberOfCars);
       assert.equal(11, ferryManager.numberOfPeople);

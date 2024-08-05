@@ -6,15 +6,14 @@ export default class FerryManager extends FerryImpl implements IFerry {
     constructor(numberOfCars: number = 0, numberOfPeople: number = 0, cars: ICar[] = []){
         super(numberOfCars, numberOfPeople, cars);
     };
-    public carsWithColor(color: string): number | boolean {
+    public carsWithColor(color: string): number {
         let colorCount: number = 0;
         for (let car of this.cars) {
             if (car.colour === color) {
                 colorCount++;
             }
         }
-        if (colorCount) return colorCount;
-        return false;
+        return colorCount;
     }
     public leaveFerry(id: number): boolean {
         if (!id) return false;
@@ -29,6 +28,19 @@ export default class FerryManager extends FerryImpl implements IFerry {
         }
         return false;
     }
-    // giving a car 50% discount after three trips on the same ferry. The board method should return ‘half price!’;
-    // giving a free trip after 7 trips on any Ferry. The board method should return ‘you go free!’
+    public handleBoarding(car: ICar): string {
+        const boardingResult = super.board(car);
+        if (boardingResult === "accepted") {
+            super.incrementCarTrips(car.id);
+            const trips = super.getCarTrips(car.id);
+            if (trips % 7 === 0) {
+                return "you go free!";
+            } else if (trips % 3 === 0) {
+                return "half price!";
+            }
+            return "accepted";
+        } else {
+            return boardingResult;
+        }
+    }
 }
