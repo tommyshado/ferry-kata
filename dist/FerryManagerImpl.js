@@ -37,10 +37,10 @@ class FerryManager extends FerryImpl_1.default {
         if (boardingResult === "accepted") {
             super.incrementCarTrips(car.id);
             const trips = super.getCarTrips(car.id);
-            if (trips % 7 === 0) {
+            if (trips >= 7) {
                 return "you go free!";
             }
-            else if (trips % 3 === 0) {
+            else if (trips >= 3) {
                 return "half price!";
             }
             return "accepted";
